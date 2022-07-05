@@ -1,0 +1,14 @@
+figure.figsize :  6.3, 3.54 # 16*0.3937, 9*0.3937
+figure.dpi : 600
+font.size : 9
+font.family : Times New Roman
+xtick.direction : in
+ytick.direction : in
+axes.labelsize : 9
+xtick.labelsize : 8
+ytick.labelsize : 8
+lines.linewidth : 1
+patch.linewidth : 0.5
+xtick.major.width : 0.5
+ytick.major.width : 0.5
+axes.linewidth : 0.3
