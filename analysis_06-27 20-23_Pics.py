@@ -24,13 +24,13 @@ plt.plot(detail_result_rolling['return'], c='#305497')
 plt.xlabel('Epoch')
 plt.ylabel('Average Return')
 plt.annotate('rise sharply', xy=(1200, 0.885), xytext=(5200, 0.885),
-            arrowprops=dict(arrowstyle="->"))
+             arrowprops=dict(arrowstyle="->"))
 plt.annotate('fluctuate', xy=(5000, 0.99), xytext=(500, 1.08),
-            arrowprops=dict(arrowstyle="->"))
+             arrowprops=dict(arrowstyle="->"))
 plt.annotate('rise again', xy=(7500, 1), xytext=(12000, 0.98),
-            arrowprops=dict(arrowstyle="->"))
+             arrowprops=dict(arrowstyle="->"))
 plt.annotate('converge to a high level', xy=(40000, 1.08), xytext=(25000, 1.01),
-            arrowprops=dict(arrowstyle="->"))
+             arrowprops=dict(arrowstyle="->"))
 plt.subplots_adjust(left=0.14, bottom=0.2, right=0.98, top=0.99)
 plt.savefig(folder + 'convergence curve.tiff')
 plt.show()
@@ -51,25 +51,24 @@ test_result['average'] = test_result.mean(axis=1)
 
 all_result = pd.concat([training_result['average'], test_result['average']], axis=1)
 all_result.columns = ['training_instances', 'test_instances']
-all_result = all_result/3600
+all_result = all_result / 3600
 
 y = all_result['test_instances'].values
 x = all_result[['training_instances']]
 x['intercept'] = 1
 X = x.values
-params = np.linalg.inv(X.T@X)@X.T@y
-y_predict = X@params
+params = np.linalg.inv(X.T @ X) @ X.T @ y
+y_predict = X @ params
 r2 = r2_score(y, y_predict)
 
 result = st.linregress(all_result['training_instances'], all_result['test_instances'])
-
 
 plt.figure()
 plt.scatter(all_result['training_instances'], all_result['test_instances'], s=7, c='#305497', label='Agent')
 plt.xlabel('Makespan of Training Instances (h)')
 plt.ylabel('Makespan of Test Instances (h)')
 x_line = [2, 7.5]
-y_line = [_x*params[0] + params[1] for _x in x_line]
+y_line = [_x * params[0] + params[1] for _x in x_line]
 plt.plot(x_line, y_line, c='#305497', label='Ordinary Least Squares Fitting')
 plt.text(5.5, 5, 'y={:.2f}x{:.2f}'.format(params[0], params[1]))
 plt.legend(fontsize=8, frameon=False)
@@ -77,9 +76,8 @@ plt.subplots_adjust(left=0.13, bottom=0.2, right=0.98, top=0.99)
 plt.savefig(folder + 'train test comparison.tiff')
 plt.show()
 
-
 # %% 整理数据
-rule_training_result_file = folder+'rule_training_result.csv'
+rule_training_result_file = folder + 'rule_training_result.csv'
 rule_test_result_file = folder + 'rule_test_result.csv'
 rule_test_result = pd.read_csv(rule_test_result_file, index_col=0)
 rule_training_result = pd.read_csv(rule_training_result_file, index_col=0)
